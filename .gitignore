@@ -22,3 +22,5 @@ htmlcov/
 threat-model.md
 .DS_Store
 Thumbs.db
+.vscode/
+.cursor/
