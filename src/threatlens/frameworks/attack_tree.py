@@ -257,6 +257,8 @@ def _build_subtree(spec: dict, prefix: str) -> AttackNode:
         label=spec["label"],
         gate=GateType(spec.get("gate", "OR")),
         children=children,
+        likelihood=None,
+        impact=None,
     )
 
 
@@ -285,6 +287,8 @@ def build_attack_tree(threat: Threat) -> AttackTree:
         label=f"GOAL: {threat.title}",
         gate=GateType.OR if len(subtrees) > 1 else GateType.AND,
         children=subtrees,
+        likelihood=None,
+        impact=None,
     )
 
     return AttackTree(

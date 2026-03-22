@@ -70,12 +70,10 @@ class TestCorrelation:
         assert len(correlations) == len(threats)
         if len(correlations) > 1:
             for i in range(len(correlations) - 1):
-                score_a = correlations[i].dread.overall if correlations[i].dread else 0
-                score_b = (
-                    correlations[i + 1].dread.overall
-                    if correlations[i + 1].dread
-                    else 0
-                )
+                dread_a = correlations[i].dread
+                dread_b = correlations[i + 1].dread
+                score_a = dread_a.overall if dread_a else 0
+                score_b = dread_b.overall if dread_b else 0
                 assert score_a >= score_b
 
     def test_framework_coverage_summary(self):
