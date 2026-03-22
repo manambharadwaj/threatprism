@@ -112,7 +112,7 @@ Or with uv (no install required):
 
 ### Claude Desktop
 
-Add to `claude_desktop_config.json`:
+Add to `claude_desktop_config.json` (macOS: `~/Library/Application Support/Claude/`, Windows: `%APPDATA%\Claude\`):
 
 ```json
 {
@@ -123,6 +123,31 @@ Add to `claude_desktop_config.json`:
     }
   }
 }
+```
+
+Or with uv (no install required):
+
+```json
+{
+  "mcpServers": {
+    "threatlens": {
+      "command": "uv",
+      "args": ["run", "--directory", "/path/to/threatlens", "threatlens"]
+    }
+  }
+}
+```
+
+### Claude Code (CLI)
+
+```bash
+claude mcp add threatlens -- threatlens
+```
+
+Or with uv:
+
+```bash
+claude mcp add threatlens -- uv run --directory /path/to/threatlens threatlens
 ```
 
 ### VS Code (GitHub Copilot)
