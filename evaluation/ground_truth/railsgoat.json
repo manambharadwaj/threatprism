@@ -1,0 +1,98 @@
+{
+  "project": "OWASP RailsGoat",
+  "description": "Ruby on Rails web application with PostgreSQL database, user authentication with Devise, user registration with personal data including name email and social security number, employee management system with salary and benefits data, file upload for pay stubs, admin panel with role-based authorization, password reset via email token, internal messaging system, retirement fund management",
+  "tech_stack": ["Ruby", "Rails", "PostgreSQL", "Devise", "HTML", "JavaScript"],
+  "components": ["web server", "auth service", "user management", "employee system", "file handler", "admin panel", "messaging system", "payroll system"],
+  "source": "https://github.com/OWASP/railsgoat",
+  "vulnerabilities": [
+    {
+      "name": "SQL Injection",
+      "cwe_ids": ["CWE-89"],
+      "stride_categories": ["tampering", "information_disclosure"],
+      "severity": "critical",
+      "component": "web server",
+      "description": "SQL injection in search and data retrieval using string interpolation in queries"
+    },
+    {
+      "name": "Mass Assignment",
+      "cwe_ids": ["CWE-915"],
+      "stride_categories": ["tampering", "elevation_of_privilege"],
+      "severity": "critical",
+      "component": "user management",
+      "description": "Unprotected attributes allow role escalation via mass assignment"
+    },
+    {
+      "name": "Authentication Weakness",
+      "cwe_ids": ["CWE-287", "CWE-307"],
+      "stride_categories": ["spoofing"],
+      "severity": "high",
+      "component": "auth service",
+      "description": "Weak password policy, no account lockout, predictable password reset tokens"
+    },
+    {
+      "name": "Cross-Site Scripting",
+      "cwe_ids": ["CWE-79"],
+      "stride_categories": ["tampering"],
+      "severity": "high",
+      "component": "messaging system",
+      "description": "Stored XSS in internal messages and employee profile fields"
+    },
+    {
+      "name": "Insecure Direct Object Reference",
+      "cwe_ids": ["CWE-639"],
+      "stride_categories": ["elevation_of_privilege", "information_disclosure"],
+      "severity": "high",
+      "component": "employee system",
+      "description": "IDOR allowing access to other employees' salary and benefits data"
+    },
+    {
+      "name": "Sensitive Data Exposure (SSN/Salary)",
+      "cwe_ids": ["CWE-312", "CWE-359"],
+      "stride_categories": ["information_disclosure"],
+      "linddun_categories": ["identifiability", "disclosure", "non_compliance"],
+      "severity": "critical",
+      "component": "payroll system",
+      "description": "SSN and salary data stored in plaintext, exposed via unprotected endpoints"
+    },
+    {
+      "name": "Missing Access Control",
+      "cwe_ids": ["CWE-285", "CWE-862"],
+      "stride_categories": ["elevation_of_privilege"],
+      "severity": "high",
+      "component": "admin panel",
+      "description": "Admin functionality accessible to regular users"
+    },
+    {
+      "name": "CSRF",
+      "cwe_ids": ["CWE-352"],
+      "stride_categories": ["spoofing", "repudiation"],
+      "severity": "medium",
+      "component": "web server",
+      "description": "CSRF protection disabled or improperly implemented"
+    },
+    {
+      "name": "Session Management Weakness",
+      "cwe_ids": ["CWE-384", "CWE-613"],
+      "stride_categories": ["spoofing"],
+      "severity": "high",
+      "component": "auth service",
+      "description": "Session not invalidated on logout, no session timeout"
+    },
+    {
+      "name": "File Upload Vulnerability",
+      "cwe_ids": ["CWE-434"],
+      "stride_categories": ["tampering", "elevation_of_privilege"],
+      "severity": "high",
+      "component": "file handler",
+      "description": "Unrestricted file upload for pay stubs without content validation"
+    },
+    {
+      "name": "Information Leakage",
+      "cwe_ids": ["CWE-200", "CWE-209"],
+      "stride_categories": ["information_disclosure"],
+      "severity": "medium",
+      "component": "web server",
+      "description": "Detailed error pages in production, exposed database schema information"
+    }
+  ]
+}

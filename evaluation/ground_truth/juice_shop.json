@@ -1,0 +1,114 @@
+{
+  "project": "OWASP Juice Shop",
+  "description": "E-commerce web application with Angular frontend, Express.js REST API backend, SQLite database, user authentication with JWT tokens, file upload functionality, payment processing with credit card storage, user reviews and feedback system, admin panel with role-based access control, password reset via email, product search with filtering",
+  "tech_stack": ["Node.js", "Express", "Angular", "SQLite", "JWT", "REST API"],
+  "components": ["API gateway", "auth service", "payment processor", "file upload", "admin panel", "search engine", "user database"],
+  "source": "https://owasp.org/www-project-juice-shop/",
+  "vulnerabilities": [
+    {
+      "name": "SQL Injection in search",
+      "cwe_ids": ["CWE-89"],
+      "stride_categories": ["tampering", "information_disclosure"],
+      "severity": "critical",
+      "component": "search engine",
+      "description": "Product search endpoint vulnerable to SQL injection via crafted search terms"
+    },
+    {
+      "name": "Broken Authentication",
+      "cwe_ids": ["CWE-287", "CWE-384"],
+      "stride_categories": ["spoofing"],
+      "severity": "critical",
+      "component": "auth service",
+      "description": "Multiple auth bypasses including password brute force and JWT manipulation"
+    },
+    {
+      "name": "Cross-Site Scripting (XSS)",
+      "cwe_ids": ["CWE-79"],
+      "stride_categories": ["tampering"],
+      "severity": "high",
+      "component": "API gateway",
+      "description": "Reflected and stored XSS in product reviews and user profile fields"
+    },
+    {
+      "name": "Sensitive Data Exposure",
+      "cwe_ids": ["CWE-200", "CWE-312", "CWE-319"],
+      "stride_categories": ["information_disclosure"],
+      "severity": "high",
+      "component": "user database",
+      "description": "Passwords stored with weak hashing, credit card data exposed in API responses"
+    },
+    {
+      "name": "Broken Access Control",
+      "cwe_ids": ["CWE-639", "CWE-285"],
+      "stride_categories": ["elevation_of_privilege", "spoofing"],
+      "severity": "critical",
+      "component": "admin panel",
+      "description": "Horizontal and vertical privilege escalation, IDOR on user data endpoints"
+    },
+    {
+      "name": "Security Misconfiguration",
+      "cwe_ids": ["CWE-16", "CWE-209"],
+      "stride_categories": ["information_disclosure"],
+      "severity": "medium",
+      "component": "API gateway",
+      "description": "Verbose error messages, exposed stack traces, default credentials"
+    },
+    {
+      "name": "Insecure File Upload",
+      "cwe_ids": ["CWE-434"],
+      "stride_categories": ["tampering", "elevation_of_privilege"],
+      "severity": "high",
+      "component": "file upload",
+      "description": "Unrestricted file upload allows arbitrary file types including executables"
+    },
+    {
+      "name": "XML External Entity (XXE)",
+      "cwe_ids": ["CWE-611"],
+      "stride_categories": ["information_disclosure", "tampering"],
+      "severity": "high",
+      "component": "API gateway",
+      "description": "XXE via crafted XML payloads in file upload or API endpoints"
+    },
+    {
+      "name": "Insecure Deserialization",
+      "cwe_ids": ["CWE-502"],
+      "stride_categories": ["tampering", "elevation_of_privilege"],
+      "severity": "high",
+      "component": "API gateway",
+      "description": "Unsafe deserialization of user-controlled data leading to RCE"
+    },
+    {
+      "name": "JWT Token Manipulation",
+      "cwe_ids": ["CWE-347", "CWE-290"],
+      "stride_categories": ["spoofing", "tampering"],
+      "severity": "critical",
+      "component": "auth service",
+      "description": "JWT none algorithm attack, weak secret allowing token forgery"
+    },
+    {
+      "name": "Cross-Site Request Forgery",
+      "cwe_ids": ["CWE-352"],
+      "stride_categories": ["spoofing", "repudiation"],
+      "severity": "medium",
+      "component": "API gateway",
+      "description": "Missing CSRF tokens on state-changing operations"
+    },
+    {
+      "name": "Privacy Violation - User Tracking",
+      "cwe_ids": ["CWE-359"],
+      "stride_categories": ["information_disclosure"],
+      "linddun_categories": ["identifiability", "linkability", "detectability"],
+      "severity": "medium",
+      "component": "user database",
+      "description": "User activities tracked and correlated without consent or transparency"
+    },
+    {
+      "name": "Denial of Service via Resource Exhaustion",
+      "cwe_ids": ["CWE-400", "CWE-770"],
+      "stride_categories": ["denial_of_service"],
+      "severity": "medium",
+      "component": "API gateway",
+      "description": "No rate limiting on API endpoints allows resource exhaustion"
+    }
+  ]
+}

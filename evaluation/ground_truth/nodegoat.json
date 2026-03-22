@@ -1,0 +1,99 @@
+{
+  "project": "OWASP NodeGoat",
+  "description": "Node.js Express web application with MongoDB database, user authentication with session cookies, user profile with personal data including name email phone and social security number, employee benefits management, retirement calculator, financial allocations system, admin functionality, password reset via security questions, memo system between users",
+  "tech_stack": ["Node.js", "Express", "MongoDB", "Swig templates", "REST API"],
+  "components": ["web server", "auth service", "user profile manager", "benefits system", "admin panel", "memo system", "session manager"],
+  "source": "https://github.com/OWASP/NodeGoat",
+  "vulnerabilities": [
+    {
+      "name": "Injection (NoSQL)",
+      "cwe_ids": ["CWE-943", "CWE-89"],
+      "stride_categories": ["tampering", "information_disclosure"],
+      "severity": "critical",
+      "component": "auth service",
+      "description": "NoSQL injection in login allowing authentication bypass via MongoDB operator injection"
+    },
+    {
+      "name": "Broken Authentication",
+      "cwe_ids": ["CWE-287", "CWE-384"],
+      "stride_categories": ["spoofing"],
+      "severity": "critical",
+      "component": "auth service",
+      "description": "Session fixation, weak password requirements, insecure remember-me"
+    },
+    {
+      "name": "Sensitive Data Exposure (SSN)",
+      "cwe_ids": ["CWE-312", "CWE-359"],
+      "stride_categories": ["information_disclosure"],
+      "linddun_categories": ["identifiability", "disclosure", "non_compliance"],
+      "severity": "critical",
+      "component": "user profile manager",
+      "description": "Social security numbers stored in plaintext and exposed in API responses"
+    },
+    {
+      "name": "Insecure Direct Object Reference",
+      "cwe_ids": ["CWE-639"],
+      "stride_categories": ["elevation_of_privilege", "information_disclosure"],
+      "severity": "high",
+      "component": "benefits system",
+      "description": "IDOR on employee benefits and allocations endpoints"
+    },
+    {
+      "name": "Security Misconfiguration",
+      "cwe_ids": ["CWE-16"],
+      "stride_categories": ["information_disclosure"],
+      "severity": "medium",
+      "component": "web server",
+      "description": "X-Powered-By header exposed, missing security headers"
+    },
+    {
+      "name": "Cross-Site Scripting",
+      "cwe_ids": ["CWE-79"],
+      "stride_categories": ["tampering"],
+      "severity": "high",
+      "component": "memo system",
+      "description": "Stored XSS in memo functionality between users"
+    },
+    {
+      "name": "Missing Access Control",
+      "cwe_ids": ["CWE-285", "CWE-862"],
+      "stride_categories": ["elevation_of_privilege"],
+      "severity": "high",
+      "component": "admin panel",
+      "description": "Admin endpoints accessible without proper role verification"
+    },
+    {
+      "name": "CSRF",
+      "cwe_ids": ["CWE-352"],
+      "stride_categories": ["spoofing", "repudiation"],
+      "severity": "medium",
+      "component": "user profile manager",
+      "description": "Profile update and password change vulnerable to CSRF"
+    },
+    {
+      "name": "Unvalidated Redirects",
+      "cwe_ids": ["CWE-601"],
+      "stride_categories": ["spoofing"],
+      "severity": "medium",
+      "component": "auth service",
+      "description": "Open redirect after login via manipulated redirect parameter"
+    },
+    {
+      "name": "Server-Side Request Forgery",
+      "cwe_ids": ["CWE-918"],
+      "stride_categories": ["information_disclosure", "tampering"],
+      "severity": "high",
+      "component": "web server",
+      "description": "SSRF through URL parameters in research/lookup features"
+    },
+    {
+      "name": "Privacy - PII Linkability",
+      "cwe_ids": ["CWE-359"],
+      "stride_categories": ["information_disclosure"],
+      "linddun_categories": ["linkability", "identifiability", "non_compliance"],
+      "severity": "high",
+      "component": "user profile manager",
+      "description": "User SSN, financial data, and personal info all linkable in single profile view"
+    }
+  ]
+}

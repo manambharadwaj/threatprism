@@ -1,0 +1,97 @@
+{
+  "project": "OWASP WebGoat",
+  "description": "Java Spring Boot web application for security training with user authentication using session cookies, SQL database with JDBC, REST API endpoints, file upload system, admin functionality, password management, XML processing, JWT token handling, WebSocket communication, client-side validation",
+  "tech_stack": ["Java", "Spring Boot", "JDBC", "SQL", "REST API", "WebSocket"],
+  "components": ["web server", "auth service", "database layer", "file handler", "admin module", "session manager"],
+  "source": "https://owasp.org/www-project-webgoat/",
+  "vulnerabilities": [
+    {
+      "name": "SQL Injection",
+      "cwe_ids": ["CWE-89"],
+      "stride_categories": ["tampering", "information_disclosure"],
+      "severity": "critical",
+      "component": "database layer",
+      "description": "Multiple SQL injection points in login, search, and data retrieval endpoints"
+    },
+    {
+      "name": "Path Traversal",
+      "cwe_ids": ["CWE-22"],
+      "stride_categories": ["information_disclosure", "tampering"],
+      "severity": "high",
+      "component": "file handler",
+      "description": "Directory traversal in file download functionality"
+    },
+    {
+      "name": "Authentication Bypass",
+      "cwe_ids": ["CWE-287", "CWE-290"],
+      "stride_categories": ["spoofing"],
+      "severity": "critical",
+      "component": "auth service",
+      "description": "Authentication bypass through parameter manipulation and session fixation"
+    },
+    {
+      "name": "Cross-Site Scripting",
+      "cwe_ids": ["CWE-79"],
+      "stride_categories": ["tampering"],
+      "severity": "high",
+      "component": "web server",
+      "description": "Reflected and DOM-based XSS in multiple input fields"
+    },
+    {
+      "name": "Insecure Direct Object Reference",
+      "cwe_ids": ["CWE-639"],
+      "stride_categories": ["elevation_of_privilege", "information_disclosure"],
+      "severity": "high",
+      "component": "web server",
+      "description": "IDOR allowing access to other users' data by modifying request parameters"
+    },
+    {
+      "name": "XML External Entity",
+      "cwe_ids": ["CWE-611"],
+      "stride_categories": ["information_disclosure", "tampering"],
+      "severity": "high",
+      "component": "web server",
+      "description": "XXE injection in XML processing endpoints"
+    },
+    {
+      "name": "JWT Vulnerabilities",
+      "cwe_ids": ["CWE-347"],
+      "stride_categories": ["spoofing", "tampering"],
+      "severity": "high",
+      "component": "auth service",
+      "description": "JWT none algorithm, key confusion, and signature bypass"
+    },
+    {
+      "name": "Missing Access Control",
+      "cwe_ids": ["CWE-285", "CWE-862"],
+      "stride_categories": ["elevation_of_privilege"],
+      "severity": "high",
+      "component": "admin module",
+      "description": "Missing function-level access control on admin endpoints"
+    },
+    {
+      "name": "CSRF",
+      "cwe_ids": ["CWE-352"],
+      "stride_categories": ["spoofing", "repudiation"],
+      "severity": "medium",
+      "component": "web server",
+      "description": "Cross-site request forgery on state-changing operations"
+    },
+    {
+      "name": "Insecure Deserialization",
+      "cwe_ids": ["CWE-502"],
+      "stride_categories": ["tampering", "elevation_of_privilege"],
+      "severity": "critical",
+      "component": "web server",
+      "description": "Java deserialization vulnerability allowing remote code execution"
+    },
+    {
+      "name": "Weak Password Storage",
+      "cwe_ids": ["CWE-916", "CWE-328"],
+      "stride_categories": ["information_disclosure"],
+      "severity": "high",
+      "component": "database layer",
+      "description": "Passwords stored with weak or no hashing algorithms"
+    }
+  ]
+}

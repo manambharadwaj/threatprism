@@ -24,3 +24,5 @@ threat-model.md
 Thumbs.db
 .vscode/
 .cursor/
+*.pptx
+evaluation/results/
