@@ -1,0 +1,97 @@
+{
+  "project": "Damn Vulnerable Web Application (DVWA)",
+  "description": "PHP web application with MySQL database, user login authentication with session management, file upload functionality, command injection points, CAPTCHA system, user registration with email and personal data, admin panel for user management, brute force login page, insecure file inclusion",
+  "tech_stack": ["PHP", "MySQL", "Apache", "HTML", "JavaScript"],
+  "components": ["web server", "auth module", "database", "file upload handler", "admin panel", "CAPTCHA system", "command executor"],
+  "source": "https://github.com/digininja/DVWA",
+  "vulnerabilities": [
+    {
+      "name": "Command Injection",
+      "cwe_ids": ["CWE-78"],
+      "stride_categories": ["tampering", "elevation_of_privilege"],
+      "severity": "critical",
+      "component": "command executor",
+      "description": "OS command injection via ping functionality allowing arbitrary command execution"
+    },
+    {
+      "name": "SQL Injection",
+      "cwe_ids": ["CWE-89"],
+      "stride_categories": ["tampering", "information_disclosure"],
+      "severity": "critical",
+      "component": "database",
+      "description": "SQL injection in user ID lookup and login forms"
+    },
+    {
+      "name": "Reflected XSS",
+      "cwe_ids": ["CWE-79"],
+      "stride_categories": ["tampering"],
+      "severity": "high",
+      "component": "web server",
+      "description": "Reflected cross-site scripting in name parameter"
+    },
+    {
+      "name": "Stored XSS",
+      "cwe_ids": ["CWE-79"],
+      "stride_categories": ["tampering"],
+      "severity": "high",
+      "component": "web server",
+      "description": "Stored XSS in guestbook functionality"
+    },
+    {
+      "name": "File Inclusion (LFI/RFI)",
+      "cwe_ids": ["CWE-98", "CWE-22"],
+      "stride_categories": ["information_disclosure", "tampering", "elevation_of_privilege"],
+      "severity": "critical",
+      "component": "web server",
+      "description": "Local and remote file inclusion via page parameter"
+    },
+    {
+      "name": "File Upload Vulnerability",
+      "cwe_ids": ["CWE-434"],
+      "stride_categories": ["tampering", "elevation_of_privilege"],
+      "severity": "high",
+      "component": "file upload handler",
+      "description": "Unrestricted file upload allowing PHP webshell upload"
+    },
+    {
+      "name": "Brute Force Authentication",
+      "cwe_ids": ["CWE-307"],
+      "stride_categories": ["spoofing"],
+      "severity": "high",
+      "component": "auth module",
+      "description": "No account lockout or rate limiting on login, enabling brute force attacks"
+    },
+    {
+      "name": "Weak Session Management",
+      "cwe_ids": ["CWE-384", "CWE-614"],
+      "stride_categories": ["spoofing"],
+      "severity": "high",
+      "component": "auth module",
+      "description": "Predictable session IDs and missing secure cookie flags"
+    },
+    {
+      "name": "CSRF",
+      "cwe_ids": ["CWE-352"],
+      "stride_categories": ["spoofing", "repudiation"],
+      "severity": "medium",
+      "component": "web server",
+      "description": "Password change form vulnerable to CSRF"
+    },
+    {
+      "name": "Weak CAPTCHA",
+      "cwe_ids": ["CWE-804"],
+      "stride_categories": ["spoofing"],
+      "severity": "medium",
+      "component": "CAPTCHA system",
+      "description": "CAPTCHA bypass through parameter manipulation"
+    },
+    {
+      "name": "Information Disclosure",
+      "cwe_ids": ["CWE-200", "CWE-209"],
+      "stride_categories": ["information_disclosure"],
+      "severity": "medium",
+      "component": "web server",
+      "description": "PHP info page exposed, verbose error messages with stack traces"
+    }
+  ]
+}
