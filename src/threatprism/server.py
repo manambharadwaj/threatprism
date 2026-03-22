@@ -1,4 +1,4 @@
-"""ThreatLens MCP server — exposes multi-framework threat analysis as tools.
+"""ThreatPrism MCP server — exposes multi-framework threat analysis as tools.
 
 Provides STRIDE, DREAD, LINDDUN, and PASTA analysis to any
 MCP-compatible client via the Model Context Protocol.
@@ -8,18 +8,18 @@ from __future__ import annotations
 
 from fastmcp import FastMCP
 
-from threatlens.correlation import correlate_all, framework_coverage_summary
-from threatlens.frameworks.attack_tree import build_attack_tree, build_attack_trees
-from threatlens.frameworks.dread import aggregate_risk, score_threats
-from threatlens.frameworks.linddun import assess_privacy, detect_privacy_signals
-from threatlens.frameworks.pasta import run_pasta
-from threatlens.frameworks.stride import analyze_stride
-from threatlens.mappings import cwes_for_threat_categories, mitre_for_threat_categories
-from threatlens.models import Severity, Threat
-from threatlens.reports import generate_report
+from threatprism.correlation import correlate_all, framework_coverage_summary
+from threatprism.frameworks.attack_tree import build_attack_tree, build_attack_trees
+from threatprism.frameworks.dread import aggregate_risk, score_threats
+from threatprism.frameworks.linddun import assess_privacy, detect_privacy_signals
+from threatprism.frameworks.pasta import run_pasta
+from threatprism.frameworks.stride import analyze_stride
+from threatprism.mappings import cwes_for_threat_categories, mitre_for_threat_categories
+from threatprism.models import Severity, Threat
+from threatprism.reports import generate_report
 
 _INSTRUCTIONS = """\
-## ThreatLens — Multi-Framework Threat Intelligence
+## ThreatPrism — Multi-Framework Threat Intelligence
 
 You have access to threat analysis tools spanning four security frameworks:
 STRIDE, DREAD, LINDDUN, and PASTA, plus CWE/MITRE ATT&CK cross-references.
@@ -40,7 +40,7 @@ STRIDE, DREAD, LINDDUN, and PASTA, plus CWE/MITRE ATT&CK cross-references.
    markdown report, or `run_pasta_analysis` for a structured 7-stage process.
 """
 
-mcp = FastMCP("ThreatLens", instructions=_INSTRUCTIONS)
+mcp = FastMCP("ThreatPrism", instructions=_INSTRUCTIONS)
 
 # ---------------------------------------------------------------------------
 # Tool: analyze_threat_landscape

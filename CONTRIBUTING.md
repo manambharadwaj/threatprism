@@ -1,4 +1,4 @@
-# Contributing to ThreatLens
+# Contributing to ThreatPrism
 
 Thanks for your interest in contributing! This guide covers everything you need to get started.
 
@@ -6,8 +6,8 @@ Thanks for your interest in contributing! This guide covers everything you need 
 
 ```bash
 # Clone the repo
-git clone https://github.com/manambharadwaj/threatlens.git
-cd threatlens
+git clone https://github.com/manambharadwaj/threatprism.git
+cd threatprism
 
 # Install uv (if you don't have it)
 curl -LsSf https://astral.sh/uv/install.sh | sh
@@ -37,7 +37,7 @@ uv run pyright            # Types clean
 ## Project Structure
 
 ```
-src/threatlens/
+src/threatprism/
 ├── __init__.py          # Package entry point and CLI
 ├── server.py            # MCP server and tool definitions
 ├── models.py            # Pydantic models (Threat, DreadScore, etc.)
@@ -83,7 +83,7 @@ These are enforced by ruff and pyright — just run the checks and fix what they
 
 ## Reporting Bugs
 
-Open an issue at [github.com/manambharadwaj/threatlens/issues](https://github.com/manambharadwaj/threatlens/issues) with:
+Open an issue at [github.com/manambharadwaj/threatprism/issues](https://github.com/manambharadwaj/threatprism/issues) with:
 - What you expected vs what happened
 - Minimal reproduction steps
 - Python version and OS

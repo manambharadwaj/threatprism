@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to ThreatLens will be documented in this file.
+All notable changes to ThreatPrism will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
@@ -22,4 +22,4 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 - GitHub Actions CI across Python 3.10–3.13
 - Evaluation framework with ground truth for 5 OWASP projects
 
-[0.1.0]: https://github.com/manambharadwaj/threatlens/releases/tag/v0.1.0
+[0.1.0]: https://github.com/manambharadwaj/threatprism/releases/tag/v0.1.0

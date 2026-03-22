@@ -1,4 +1,4 @@
-"""Evaluation runner — tests ThreatLens against known-vulnerable projects.
+"""Evaluation runner — tests ThreatPrism against known-vulnerable projects.
 
 Runs three analysis modes (STRIDE-only, STRIDE+DREAD, Full multi-framework)
 against each ground truth project and records structured results for
@@ -12,13 +12,13 @@ import time
 from pathlib import Path
 from typing import Any
 
-from threatlens.correlation import correlate_all
-from threatlens.frameworks.attack_tree import build_attack_trees
-from threatlens.frameworks.dread import score_threats
-from threatlens.frameworks.linddun import assess_privacy
-from threatlens.frameworks.pasta import run_pasta
-from threatlens.frameworks.stride import analyze_stride
-from threatlens.models import Severity
+from threatprism.correlation import correlate_all
+from threatprism.frameworks.attack_tree import build_attack_trees
+from threatprism.frameworks.dread import score_threats
+from threatprism.frameworks.linddun import assess_privacy
+from threatprism.frameworks.pasta import run_pasta
+from threatprism.frameworks.stride import analyze_stride
+from threatprism.models import Severity
 
 GROUND_TRUTH_DIR = Path(__file__).parent / "ground_truth"
 RESULTS_DIR = Path(__file__).parent / "results"
@@ -149,7 +149,7 @@ def _run_full(
         linddun_cats.add(imp.category.value)
 
     return {
-        "mode": "full_threatlens",
+        "mode": "full_threatprism",
         "elapsed_seconds": round(elapsed, 4),
         "threat_count": len(threats),
         "threats": [
@@ -225,7 +225,7 @@ def evaluate_project(gt_path: Path) -> dict[str, Any]:
         f"{dread_result['threat_count']} threats in {dread_result['elapsed_seconds']}s"
     )
 
-    print("    Mode 3: Full ThreatLens ...", end=" ", flush=True)
+    print("    Mode 3: Full ThreatPrism ...", end=" ", flush=True)
     full_result = _run_full(desc, tech, comps)
     print(f"{full_result['threat_count']} threats in {full_result['elapsed_seconds']}s")
 
@@ -236,7 +236,7 @@ def evaluate_project(gt_path: Path) -> dict[str, Any]:
         "results": {
             "stride_only": stride_result,
             "stride_dread": dread_result,
-            "full_threatlens": full_result,
+            "full_threatprism": full_result,
         },
     }
 

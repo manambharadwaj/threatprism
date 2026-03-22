@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "threatlens"
+name = "threatprism"
 version = "0.1.0"
 description = "Multi-framework threat intelligence MCP server — STRIDE, DREAD, LINDDUN, and PASTA analysis for AI coding agents"
 readme = "README.md"
@@ -39,9 +39,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/manambharadwaj/threatlens"
-Repository = "https://github.com/manambharadwaj/threatlens"
-Issues = "https://github.com/manambharadwaj/threatlens/issues"
+Homepage = "https://github.com/manambharadwaj/threatprism"
+Repository = "https://github.com/manambharadwaj/threatprism"
+Issues = "https://github.com/manambharadwaj/threatprism/issues"
 
 [project.optional-dependencies]
 dev = [
@@ -53,10 +53,10 @@ dev = [
 ]
 
 [project.scripts]
-threatlens = "threatlens:cli"
+threatprism = "threatprism:cli"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/threatlens"]
+packages = ["src/threatprism"]
 
 [tool.ruff]
 line-length = 88
@@ -66,7 +66,7 @@ target-version = "py310"
 select = ["E", "F", "I", "N", "UP", "B", "SIM", "TCH"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["threatlens"]
+known-first-party = ["threatprism"]
 
 [tool.pyright]
 pythonVersion = "3.10"

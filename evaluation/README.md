@@ -1,6 +1,6 @@
-# ThreatLens Evaluation Framework
+# ThreatPrism Evaluation Framework
 
-Reproducible evaluation pipeline comparing single-framework (STRIDE-only) vs multi-framework (Full ThreatLens) threat analysis against known-vulnerable OWASP projects.
+Reproducible evaluation pipeline comparing single-framework (STRIDE-only) vs multi-framework (Full ThreatPrism) threat analysis against known-vulnerable OWASP projects.
 
 ## Quick Start
 
@@ -30,7 +30,7 @@ Each ground truth file includes vulnerability name, CWE IDs, STRIDE categories, 
 
 1. **STRIDE Only** — `analyze_stride()` alone
 2. **STRIDE + DREAD** — adds quantitative scoring
-3. **Full ThreatLens** — all frameworks + CWE/MITRE/LINDDUN correlation
+3. **Full ThreatPrism** — all frameworks + CWE/MITRE/LINDDUN correlation
 
 ## Output
 
