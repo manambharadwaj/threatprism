@@ -1,7 +1,7 @@
 """ThreatLens MCP server — exposes multi-framework threat analysis as tools.
 
-Designed to be consumed by AI coding agents (Cursor, Claude, Copilot, etc.)
-via the Model Context Protocol.
+Provides STRIDE, DREAD, LINDDUN, and PASTA analysis to any
+MCP-compatible client via the Model Context Protocol.
 """
 
 from __future__ import annotations
