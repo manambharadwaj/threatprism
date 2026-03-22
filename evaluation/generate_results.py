@@ -30,8 +30,12 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
 
     # Per-project comparison table
     lines.append("## Per-Project Results\n")
-    lines.append("| Project | GT Vulns | Mode | Detected | Matched | Precision | Recall | F1 |")
-    lines.append("|---------|----------|------|----------|---------|-----------|--------|----|")
+    lines.append(
+        "| Project | GT Vulns | Mode | Detected | Matched | Precision | Recall | F1 |"
+    )
+    lines.append(
+        "|---------|----------|------|----------|---------|-----------|--------|----|"
+    )
 
     for pm in metrics["per_project"]:
         proj = pm["project"]
@@ -53,8 +57,12 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
 
     # Aggregate comparison
     lines.append("## Aggregate Metrics\n")
-    lines.append("| Metric | STRIDE Only | STRIDE+DREAD | Full ThreatLens | Improvement |")
-    lines.append("|--------|-------------|--------------|-----------------|-------------|")
+    lines.append(
+        "| Metric | STRIDE Only | STRIDE+DREAD | Full ThreatLens | Improvement |"
+    )
+    lines.append(
+        "|--------|-------------|--------------|-----------------|-------------|"
+    )
 
     s = agg["modes"]["stride_only"]
     sd = agg["modes"]["stride_dread"]
@@ -106,8 +114,8 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
         f"(0 from STRIDE-only)"
     )
     lines.append(
-        f"- **LINDDUN categories:** {adv['extra_linddun_count']} privacy threat categories "
-        f"(0 from STRIDE-only)"
+        f"- **LINDDUN categories:** {adv['extra_linddun_count']}"
+        f" privacy threat categories (0 from STRIDE-only)"
     )
     lines.append(f"- **Recall improvement:** +{_pct(adv['recall_improvement'])}")
     lines.append(f"- **F1 improvement:** +{_pct(adv['f1_improvement'])}")
@@ -115,8 +123,12 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
 
     # Framework coverage per project
     lines.append("## Framework Coverage by Project\n")
-    lines.append("| Project | STRIDE Categories | CWE IDs | MITRE Techniques | LINDDUN Categories |")
-    lines.append("|---------|-------------------|---------|------------------|--------------------|")
+    lines.append(
+        "| Project | STRIDE | CWEs | MITRE | LINDDUN |"  # noqa: E501
+    )
+    lines.append(
+        "|---------|--------|------|-------|---------|"
+    )
     for pm in metrics["per_project"]:
         m = pm["modes"]["full_threatlens"]
         lines.append(
@@ -149,34 +161,48 @@ def generate_csv(metrics: dict[str, Any]) -> str:
     output = StringIO()
     writer = csv.writer(output)
 
-    writer.writerow([
-        "Project", "Mode", "GT_Vulns", "Detected", "Matched",
-        "Precision", "Recall", "F1",
-        "STRIDE_Coverage", "CWE_Coverage", "LINDDUN_Coverage",
-        "CWE_Count", "MITRE_Count", "LINDDUN_Count",
-        "Elapsed_s",
-    ])
+    writer.writerow(
+        [
+            "Project",
+            "Mode",
+            "GT_Vulns",
+            "Detected",
+            "Matched",
+            "Precision",
+            "Recall",
+            "F1",
+            "STRIDE_Coverage",
+            "CWE_Coverage",
+            "LINDDUN_Coverage",
+            "CWE_Count",
+            "MITRE_Count",
+            "LINDDUN_Count",
+            "Elapsed_s",
+        ]
+    )
 
     for pm in metrics["per_project"]:
         for mode_name in ["stride_only", "stride_dread", "full_threatlens"]:
             m = pm["modes"][mode_name]
-            writer.writerow([
-                pm["project"],
-                mode_name,
-                pm["ground_truth_count"],
-                m["threats_detected"],
-                m["gt_matched"],
-                m["precision"],
-                m["recall"],
-                m["f1"],
-                m["stride_coverage"],
-                m["cwe_coverage"],
-                m["linddun_coverage"],
-                len(m.get("cwe_ids_found", [])),
-                len(m.get("mitre_techniques_found", [])),
-                len(m.get("linddun_categories_found", [])),
-                m["elapsed_seconds"],
-            ])
+            writer.writerow(
+                [
+                    pm["project"],
+                    mode_name,
+                    pm["ground_truth_count"],
+                    m["threats_detected"],
+                    m["gt_matched"],
+                    m["precision"],
+                    m["recall"],
+                    m["f1"],
+                    m["stride_coverage"],
+                    m["cwe_coverage"],
+                    m["linddun_coverage"],
+                    len(m.get("cwe_ids_found", [])),
+                    len(m.get("mitre_techniques_found", [])),
+                    len(m.get("linddun_categories_found", [])),
+                    m["elapsed_seconds"],
+                ]
+            )
 
     return output.getvalue()
 
@@ -193,7 +219,9 @@ def generate_latex_tables(metrics: dict[str, Any]) -> str:
     lines.append(r"\label{tab:aggregate}")
     lines.append(r"\begin{tabular}{lccc}")
     lines.append(r"\toprule")
-    lines.append(r"\textbf{Metric} & \textbf{STRIDE} & \textbf{STRIDE+DREAD} & \textbf{Full ThreatLens} \\")
+    lines.append(
+        r"\textbf{Metric} & \textbf{STRIDE} & \textbf{S+D} & \textbf{Full} \\"
+    )
     lines.append(r"\midrule")
 
     agg = metrics["aggregate"]["modes"]
@@ -209,7 +237,8 @@ def generate_latex_tables(metrics: dict[str, Any]) -> str:
         sd_val = agg["stride_dread"][key]
         f_val = agg["full_threatlens"][key]
         lines.append(
-            f"{metric} & {_pct(s_val)} & {_pct(sd_val)} & \\textbf{{{_pct(f_val)}}} \\\\"
+            f"{metric} & {_pct(s_val)} & {_pct(sd_val)}"
+            f" & \\textbf{{{_pct(f_val)}}} \\\\"
         )
 
     lines.append(r"\bottomrule")
@@ -225,7 +254,9 @@ def generate_latex_tables(metrics: dict[str, Any]) -> str:
     lines.append(r"\label{tab:per-project}")
     lines.append(r"\begin{tabular}{lccc}")
     lines.append(r"\toprule")
-    lines.append(r"\textbf{Project} & \textbf{STRIDE} & \textbf{STRIDE+DREAD} & \textbf{Full ThreatLens} \\")
+    lines.append(
+        r"\textbf{Project} & \textbf{STRIDE} & \textbf{S+D} & \textbf{Full} \\"
+    )
     lines.append(r"\midrule")
 
     for pm in metrics["per_project"]:
@@ -271,9 +302,7 @@ def generate_all() -> None:
     """Generate all output formats from metrics."""
     metrics_path = RESULTS_DIR / "metrics.json"
     if not metrics_path.exists():
-        raise FileNotFoundError(
-            f"{metrics_path} not found. Run metrics.py first."
-        )
+        raise FileNotFoundError(f"{metrics_path} not found. Run metrics.py first.")
 
     with open(metrics_path) as f:
         metrics = json.load(f)

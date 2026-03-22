@@ -142,8 +142,8 @@ def _run_full(
         cwe_ids.update(c.cwe_ids)
         for tech in c.mitre_techniques:
             mitre_techniques.add(tech.split(" ")[0])
-        for l in c.linddun:
-            linddun_cats.add(l.value)
+        for cat in c.linddun:
+            linddun_cats.add(cat.value)
 
     for imp in privacy:
         linddun_cats.add(imp.category.value)
@@ -171,7 +171,7 @@ def _run_full(
                 "threat_title": c.threat_title,
                 "stride": [s.value for s in c.stride],
                 "dread_overall": c.dread.overall if c.dread else None,
-                "linddun": [l.value for l in c.linddun],
+                "linddun": [cat.value for cat in c.linddun],
                 "cwe_ids": c.cwe_ids,
                 "mitre_techniques": c.mitre_techniques,
             }
@@ -191,7 +191,15 @@ def _run_full(
         "cwe_ids_found": sorted(cwe_ids),
         "mitre_techniques_found": sorted(mitre_techniques),
         "linddun_categories_found": sorted(linddun_cats),
-        "frameworks_used": ["STRIDE", "DREAD", "LINDDUN", "PASTA", "Attack Trees", "CWE", "MITRE ATT&CK"],
+        "frameworks_used": [
+            "STRIDE",
+            "DREAD",
+            "LINDDUN",
+            "PASTA",
+            "Attack Trees",
+            "CWE",
+            "MITRE ATT&CK",
+        ],
     }
 
 
@@ -206,11 +214,16 @@ def evaluate_project(gt_path: Path) -> dict[str, Any]:
 
     print("    Mode 1: STRIDE only ...", end=" ", flush=True)
     stride_result = _run_stride_only(desc, tech, comps)
-    print(f"{stride_result['threat_count']} threats in {stride_result['elapsed_seconds']}s")
+    print(
+        f"{stride_result['threat_count']} threats"
+        f" in {stride_result['elapsed_seconds']}s"
+    )
 
     print("    Mode 2: STRIDE + DREAD ...", end=" ", flush=True)
     dread_result = _run_stride_dread(desc, tech, comps)
-    print(f"{dread_result['threat_count']} threats in {dread_result['elapsed_seconds']}s")
+    print(
+        f"{dread_result['threat_count']} threats in {dread_result['elapsed_seconds']}s"
+    )
 
     print("    Mode 3: Full ThreatLens ...", end=" ", flush=True)
     full_result = _run_full(desc, tech, comps)

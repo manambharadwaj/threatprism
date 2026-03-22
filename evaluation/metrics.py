@@ -67,7 +67,9 @@ def _match_threats(
             corr_cwe_map[title] = {_normalise_cwe(cid) for cid in c.get("cwe_ids", [])}
 
     for gi, gv in enumerate(gt_vulns):
-        gt_keywords = set(gv["name"].lower().split()) | set(gv.get("description", "").lower().split())
+        gt_keywords = set(gv["name"].lower().split()) | set(
+            gv.get("description", "").lower().split()
+        )
         gt_stride = set(gv.get("stride_categories", []))
         gt_cwes = {_normalise_cwe(c) for c in gv.get("cwe_ids", [])}
 
@@ -77,12 +79,36 @@ def _match_threats(
                 continue
 
             # Signal 1: keyword overlap
-            det_keywords = set(dt["title"].lower().split()) | set(dt.get("description", "").lower().split())
+            det_keywords = set(dt["title"].lower().split()) | set(
+                dt.get("description", "").lower().split()
+            )
             overlap = gt_keywords & det_keywords
             meaningful = overlap - {
-                "the", "a", "an", "in", "on", "of", "to", "for", "and",
-                "or", "is", "are", "with", "from", "by", "via", "can",
-                "that", "this", "be", "at", "it", "as", "no", "not",
+                "the",
+                "a",
+                "an",
+                "in",
+                "on",
+                "of",
+                "to",
+                "for",
+                "and",
+                "or",
+                "is",
+                "are",
+                "with",
+                "from",
+                "by",
+                "via",
+                "can",
+                "that",
+                "this",
+                "be",
+                "at",
+                "it",
+                "as",
+                "no",
+                "not",
             }
             keyword_match = len(meaningful) >= 2
 
@@ -120,7 +146,9 @@ def compute_project_metrics(project_result: dict[str, Any]) -> dict[str, Any]:
         match_info = _match_threats(gt_vulns, detected, correlations)
 
         recall = match_info["gt_matched_count"] / gt_total if gt_total > 0 else 0.0
-        precision = match_info["det_matched_count"] / det_total if det_total > 0 else 0.0
+        precision = (
+            match_info["det_matched_count"] / det_total if det_total > 0 else 0.0
+        )
         f1 = (
             2 * precision * recall / (precision + recall)
             if (precision + recall) > 0
@@ -132,9 +160,13 @@ def compute_project_metrics(project_result: dict[str, Any]) -> dict[str, Any]:
         det_linddun = set(mode_result.get("linddun_categories_found", []))
         det_mitre = set(mode_result.get("mitre_techniques_found", []))
 
-        stride_coverage = len(gt_stride & det_stride) / len(gt_stride) if gt_stride else 0.0
+        stride_coverage = (
+            len(gt_stride & det_stride) / len(gt_stride) if gt_stride else 0.0
+        )
         cwe_coverage = len(gt_cwes & det_cwes) / len(gt_cwes) if gt_cwes else 0.0
-        linddun_coverage = len(gt_linddun & det_linddun) / len(gt_linddun) if gt_linddun else 0.0
+        linddun_coverage = (
+            len(gt_linddun & det_linddun) / len(gt_linddun) if gt_linddun else 0.0
+        )
 
         mode_metrics[mode_name] = {
             "threats_detected": det_total,
@@ -198,7 +230,9 @@ def compute_aggregate(project_metrics: list[dict[str, Any]]) -> dict[str, Any]:
             elapsed_sum += m["elapsed_seconds"]
 
         agg_recall = total_matched / total_gt if total_gt > 0 else 0.0
-        agg_precision = total_det_matched / total_detected if total_detected > 0 else 0.0
+        agg_precision = (
+            total_det_matched / total_detected if total_detected > 0 else 0.0
+        )
         agg_f1 = (
             2 * agg_precision * agg_recall / (agg_precision + agg_recall)
             if (agg_precision + agg_recall) > 0
@@ -249,9 +283,7 @@ def run_metrics() -> dict[str, Any]:
     """Load results, compute metrics, and save."""
     results_path = RESULTS_DIR / "all_results.json"
     if not results_path.exists():
-        raise FileNotFoundError(
-            f"{results_path} not found. Run eval_runner.py first."
-        )
+        raise FileNotFoundError(f"{results_path} not found. Run eval_runner.py first.")
 
     with open(results_path) as f:
         all_results = json.load(f)
