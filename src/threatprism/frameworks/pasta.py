@@ -8,7 +8,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from threatlens.models import PastaStage, PastaStageResult, Severity, Threat
+from threatprism.models import PastaStage, PastaStageResult, Severity, Threat
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

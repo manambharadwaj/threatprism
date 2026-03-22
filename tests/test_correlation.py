@@ -2,18 +2,18 @@
 
 from __future__ import annotations
 
-from threatlens.correlation import (
+from threatprism.correlation import (
     correlate_all,
     correlate_threat,
     framework_coverage_summary,
 )
-from threatlens.frameworks.stride import analyze_stride
-from threatlens.mappings import (
+from threatprism.frameworks.stride import analyze_stride
+from threatprism.mappings import (
     cwes_for_threat_categories,
     linddun_for_stride,
     mitre_for_threat_categories,
 )
-from threatlens.models import StrideCategory
+from threatprism.models import StrideCategory
 
 
 class TestMappings:
@@ -41,7 +41,7 @@ class TestMappings:
 
     def test_linddun_cross_reference(self):
         linddun = linddun_for_stride([StrideCategory.INFORMATION_DISCLOSURE])
-        from threatlens.models import LinddunCategory
+        from threatprism.models import LinddunCategory
 
         assert LinddunCategory.DISCLOSURE in linddun
 

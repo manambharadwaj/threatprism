@@ -1,4 +1,4 @@
-"""ThreatLens — Multi-framework threat intelligence for AI coding agents."""
+"""ThreatPrism — Multi-framework threat intelligence for AI coding agents."""
 
 from __future__ import annotations
 
@@ -16,8 +16,8 @@ import click
 @click.option("--port", default=8000, type=int, help="Port for HTTP transports.")
 @click.option("-v", "--verbose", is_flag=True, help="Enable verbose logging.")
 def cli(transport: str, host: str, port: int, verbose: bool) -> None:
-    """Start the ThreatLens MCP server."""
-    from threatlens.server import mcp
+    """Start the ThreatPrism MCP server."""
+    from threatprism.server import mcp
 
     if verbose:
         import logging

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from threatlens.models import LinddunCategory, StrideCategory
+from threatprism.models import LinddunCategory, StrideCategory
 
 # ---------------------------------------------------------------------------
 # STRIDE → CWE mapping (curated from public CWE/CAPEC data)

@@ -1,6 +1,6 @@
 """Metrics computation — precision, recall, F1, and coverage analysis.
 
-Compares ThreatLens output against ground truth using CWE overlap
+Compares ThreatPrism output against ground truth using CWE overlap
 and STRIDE category matching to produce per-project and aggregate
 evaluation metrics.
 """
@@ -196,7 +196,7 @@ def compute_project_metrics(project_result: dict[str, Any]) -> dict[str, Any]:
 
 def compute_aggregate(project_metrics: list[dict[str, Any]]) -> dict[str, Any]:
     """Compute aggregate metrics across all projects."""
-    modes = ["stride_only", "stride_dread", "full_threatlens"]
+    modes = ["stride_only", "stride_dread", "full_threatprism"]
     aggregate: dict[str, Any] = {}
 
     for mode in modes:
@@ -257,16 +257,16 @@ def compute_aggregate(project_metrics: list[dict[str, Any]]) -> dict[str, Any]:
         }
 
     multi_only = {
-        "extra_cwe_count": aggregate["full_threatlens"]["unique_cwes_found"],
-        "extra_mitre_count": aggregate["full_threatlens"]["unique_mitre_found"],
-        "extra_linddun_count": aggregate["full_threatlens"]["unique_linddun_found"],
+        "extra_cwe_count": aggregate["full_threatprism"]["unique_cwes_found"],
+        "extra_mitre_count": aggregate["full_threatprism"]["unique_mitre_found"],
+        "extra_linddun_count": aggregate["full_threatprism"]["unique_linddun_found"],
         "recall_improvement": round(
-            aggregate["full_threatlens"]["aggregate_recall"]
+            aggregate["full_threatprism"]["aggregate_recall"]
             - aggregate["stride_only"]["aggregate_recall"],
             4,
         ),
         "f1_improvement": round(
-            aggregate["full_threatlens"]["aggregate_f1"]
+            aggregate["full_threatprism"]["aggregate_f1"]
             - aggregate["stride_only"]["aggregate_f1"],
             4,
         ),

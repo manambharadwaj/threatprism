@@ -8,13 +8,13 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from threatlens.frameworks.dread import score_threat
-from threatlens.mappings import (
+from threatprism.frameworks.dread import score_threat
+from threatprism.mappings import (
     cwes_for_threat_categories,
     linddun_for_stride,
     mitre_for_threat_categories,
 )
-from threatlens.models import FrameworkCorrelation, Threat
+from threatprism.models import FrameworkCorrelation, Threat
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

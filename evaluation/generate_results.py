@@ -22,7 +22,7 @@ def _pct(v: float) -> str:
 def generate_markdown_summary(metrics: dict[str, Any]) -> str:
     """Generate a complete markdown evaluation report."""
     lines: list[str] = []
-    lines.append("# ThreatLens Evaluation Results\n")
+    lines.append("# ThreatPrism Evaluation Results\n")
 
     agg = metrics["aggregate"]
     n = agg["project_count"]
@@ -40,12 +40,12 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
     for pm in metrics["per_project"]:
         proj = pm["project"]
         gt_count = pm["ground_truth_count"]
-        for mode_name in ["stride_only", "stride_dread", "full_threatlens"]:
+        for mode_name in ["stride_only", "stride_dread", "full_threatprism"]:
             m = pm["modes"][mode_name]
             mode_label = {
                 "stride_only": "STRIDE",
                 "stride_dread": "STRIDE+DREAD",
-                "full_threatlens": "**Full ThreatLens**",
+                "full_threatprism": "**Full ThreatPrism**",
             }[mode_name]
             lines.append(
                 f"| {proj} | {gt_count} | {mode_label} "
@@ -58,7 +58,7 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
     # Aggregate comparison
     lines.append("## Aggregate Metrics\n")
     lines.append(
-        "| Metric | STRIDE Only | STRIDE+DREAD | Full ThreatLens | Improvement |"
+        "| Metric | STRIDE Only | STRIDE+DREAD | Full ThreatPrism | Improvement |"
     )
     lines.append(
         "|--------|-------------|--------------|-----------------|-------------|"
@@ -66,7 +66,7 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
 
     s = agg["modes"]["stride_only"]
     sd = agg["modes"]["stride_dread"]
-    f = agg["modes"]["full_threatlens"]
+    f = agg["modes"]["full_threatprism"]
     adv = agg["multi_framework_advantage"]
 
     lines.append(
@@ -130,7 +130,7 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
         "|---------|--------|------|-------|---------|"
     )
     for pm in metrics["per_project"]:
-        m = pm["modes"]["full_threatlens"]
+        m = pm["modes"]["full_threatprism"]
         lines.append(
             f"| {pm['project']} "
             f"| {_pct(m.get('stride_coverage', 0))} "
@@ -147,7 +147,7 @@ def generate_markdown_summary(metrics: dict[str, Any]) -> str:
     for mode_name, label in [
         ("stride_only", "STRIDE Only"),
         ("stride_dread", "STRIDE+DREAD"),
-        ("full_threatlens", "Full ThreatLens"),
+        ("full_threatprism", "Full ThreatPrism"),
     ]:
         t = agg["modes"][mode_name]["total_elapsed_seconds"]
         lines.append(f"| {label} | {t:.3f} |")
@@ -182,7 +182,7 @@ def generate_csv(metrics: dict[str, Any]) -> str:
     )
 
     for pm in metrics["per_project"]:
-        for mode_name in ["stride_only", "stride_dread", "full_threatlens"]:
+        for mode_name in ["stride_only", "stride_dread", "full_threatprism"]:
             m = pm["modes"][mode_name]
             writer.writerow(
                 [
@@ -235,7 +235,7 @@ def generate_latex_tables(metrics: dict[str, Any]) -> str:
     ]:
         s_val = agg["stride_only"][key]
         sd_val = agg["stride_dread"][key]
-        f_val = agg["full_threatlens"][key]
+        f_val = agg["full_threatprism"][key]
         lines.append(
             f"{metric} & {_pct(s_val)} & {_pct(sd_val)}"
             f" & \\textbf{{{_pct(f_val)}}} \\\\"
@@ -263,7 +263,7 @@ def generate_latex_tables(metrics: dict[str, Any]) -> str:
         name = pm["project"].replace("OWASP ", "")
         s_f1 = pm["modes"]["stride_only"]["f1"]
         sd_f1 = pm["modes"]["stride_dread"]["f1"]
-        f_f1 = pm["modes"]["full_threatlens"]["f1"]
+        f_f1 = pm["modes"]["full_threatprism"]["f1"]
         lines.append(
             f"{name} & {_pct(s_f1)} & {_pct(sd_f1)} & \\textbf{{{_pct(f_f1)}}} \\\\"
         )

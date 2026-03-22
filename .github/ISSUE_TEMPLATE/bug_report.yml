@@ -20,7 +20,7 @@ body:
       label: Steps to Reproduce
       description: Minimal steps to reproduce the issue
       placeholder: |
-        1. Run `threatlens ...`
+        1. Run `threatprism ...`
         2. Call tool `analyze_threats` with ...
         3. See error ...
     validations:

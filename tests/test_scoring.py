@@ -2,10 +2,10 @@
 
 from __future__ import annotations
 
-from threatlens.frameworks.dread import aggregate_risk, score_threat, score_threats
-from threatlens.frameworks.stride import analyze_stride
-from threatlens.models import DreadScore, Severity, StrideCategory, Threat
-from threatlens.reports import generate_report
+from threatprism.frameworks.dread import aggregate_risk, score_threat, score_threats
+from threatprism.frameworks.stride import analyze_stride
+from threatprism.models import DreadScore, Severity, StrideCategory, Threat
+from threatprism.reports import generate_report
 
 
 class TestDreadScoring:
@@ -110,10 +110,10 @@ class TestReportGeneration:
     def test_report_includes_all_sections(self):
         threats = analyze_stride("API with JWT auth and PostgreSQL")
         scored = score_threats(threats)
-        from threatlens.correlation import correlate_all
-        from threatlens.frameworks.attack_tree import build_attack_trees
-        from threatlens.frameworks.linddun import assess_privacy
-        from threatlens.frameworks.pasta import run_pasta
+        from threatprism.correlation import correlate_all
+        from threatprism.frameworks.attack_tree import build_attack_trees
+        from threatprism.frameworks.linddun import assess_privacy
+        from threatprism.frameworks.pasta import run_pasta
 
         privacy = assess_privacy("API handling user email and name")
         pasta = run_pasta("API with JWT auth", threats)

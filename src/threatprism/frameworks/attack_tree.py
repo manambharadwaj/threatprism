@@ -9,7 +9,7 @@ from __future__ import annotations
 import hashlib
 from typing import TYPE_CHECKING
 
-from threatlens.models import AttackNode, AttackTree, GateType, StrideCategory, Threat
+from threatprism.models import AttackNode, AttackTree, GateType, StrideCategory, Threat
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

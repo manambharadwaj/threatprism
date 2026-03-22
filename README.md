@@ -1,20 +1,20 @@
-# ThreatLens
+# ThreatPrism
 
 **Multi-framework threat intelligence for AI coding agents**
 
-[![CI](https://github.com/manambharadwaj/threatlens/actions/workflows/ci.yml/badge.svg)](https://github.com/manambharadwaj/threatlens/actions/workflows/ci.yml)
+[![CI](https://github.com/manambharadwaj/threatprism/actions/workflows/ci.yml/badge.svg)](https://github.com/manambharadwaj/threatprism/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 
-ThreatLens is an MCP (Model Context Protocol) server that provides **simultaneous threat analysis across four security frameworks** — STRIDE, DREAD, LINDDUN, and PASTA — with automatic cross-referencing to CWE and MITRE ATT&CK.
+ThreatPrism is an MCP (Model Context Protocol) server that provides **simultaneous threat analysis across four security frameworks** — STRIDE, DREAD, LINDDUN, and PASTA — with automatic cross-referencing to CWE and MITRE ATT&CK.
 
-Unlike single-framework tools, ThreatLens gives you a **multi-dimensional view** of every threat: *what category* (STRIDE), *how severe* (DREAD), *what privacy impact* (LINDDUN), and *what attack process* (PASTA), all correlated in one analysis.
+Unlike single-framework tools, ThreatPrism gives you a **multi-dimensional view** of every threat: *what category* (STRIDE), *how severe* (DREAD), *what privacy impact* (LINDDUN), and *what attack process* (PASTA), all correlated in one analysis.
 
 ---
 
 ## What Makes This Different
 
-| Capability | ThreatLens | Typical Security Tools |
+| Capability | ThreatPrism | Typical Security Tools |
 |---|---|---|
 | Multi-framework correlation | STRIDE + DREAD + LINDDUN + PASTA in one pass | Usually one framework |
 | Quantitative scoring | DREAD 1-10 scores with weighted context | Qualitative High/Med/Low |
@@ -69,13 +69,13 @@ pip install .
 
 ```bash
 # stdio (default — for IDE integration)
-threatlens
+threatprism
 
 # HTTP transport (for shared/team use)
-threatlens --transport streamable-http --port 8000
+threatprism --transport streamable-http --port 8000
 
 # SSE transport
-threatlens --transport sse --port 8000
+threatprism --transport sse --port 8000
 ```
 
 ---
@@ -89,8 +89,8 @@ Add to `.cursor/mcp.json`:
 ```json
 {
   "mcpServers": {
-    "threatlens": {
-      "command": "threatlens",
+    "threatprism": {
+      "command": "threatprism",
       "args": []
     }
   }
@@ -102,9 +102,9 @@ Or with uv (no install required):
 ```json
 {
   "mcpServers": {
-    "threatlens": {
+    "threatprism": {
       "command": "uv",
-      "args": ["run", "--directory", "/path/to/threatlens", "threatlens"]
+      "args": ["run", "--directory", "/path/to/threatprism", "threatprism"]
     }
   }
 }
@@ -117,8 +117,8 @@ Add to `claude_desktop_config.json` (macOS: `~/Library/Application Support/Claud
 ```json
 {
   "mcpServers": {
-    "threatlens": {
-      "command": "threatlens",
+    "threatprism": {
+      "command": "threatprism",
       "args": []
     }
   }
@@ -130,9 +130,9 @@ Or with uv (no install required):
 ```json
 {
   "mcpServers": {
-    "threatlens": {
+    "threatprism": {
       "command": "uv",
-      "args": ["run", "--directory", "/path/to/threatlens", "threatlens"]
+      "args": ["run", "--directory", "/path/to/threatprism", "threatprism"]
     }
   }
 }
@@ -141,13 +141,13 @@ Or with uv (no install required):
 ### Claude Code (CLI)
 
 ```bash
-claude mcp add threatlens -- threatlens
+claude mcp add threatprism -- threatprism
 ```
 
 Or with uv:
 
 ```bash
-claude mcp add threatlens -- uv run --directory /path/to/threatlens threatlens
+claude mcp add threatprism -- uv run --directory /path/to/threatprism threatprism
 ```
 
 ### VS Code (GitHub Copilot)
@@ -157,8 +157,8 @@ Add to `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "threatlens": {
-      "command": "threatlens",
+    "threatprism": {
+      "command": "threatprism",
       "args": []
     }
   }
@@ -168,15 +168,15 @@ Add to `.vscode/mcp.json`:
 ### Docker
 
 ```bash
-docker build -t threatlens:latest .
+docker build -t threatprism:latest .
 ```
 
 ```json
 {
   "mcpServers": {
-    "threatlens": {
+    "threatprism": {
       "command": "docker",
-      "args": ["run", "--rm", "-i", "threatlens:latest"]
+      "args": ["run", "--rm", "-i", "threatprism:latest"]
     }
   }
 }
@@ -186,7 +186,7 @@ docker build -t threatlens:latest .
 
 ## Agent Workflow
 
-When an AI agent connects, ThreatLens automatically sends workflow instructions via the MCP handshake. The agent will follow this flow:
+When an AI agent connects, ThreatPrism automatically sends workflow instructions via the MCP handshake. The agent will follow this flow:
 
 ```
 ┌─────────────────────────────┐

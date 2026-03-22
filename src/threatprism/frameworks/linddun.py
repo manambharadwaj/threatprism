@@ -13,7 +13,7 @@ import re
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
-from threatlens.models import LinddunCategory, PrivacyImpact, Severity
+from threatprism.models import LinddunCategory, PrivacyImpact, Severity
 
 if TYPE_CHECKING:
     from collections.abc import Sequence

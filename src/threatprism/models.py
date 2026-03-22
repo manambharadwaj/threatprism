@@ -1,4 +1,4 @@
-"""Core data models for ThreatLens multi-framework threat analysis."""
+"""Core data models for ThreatPrism multi-framework threat analysis."""
 
 from __future__ import annotations
 

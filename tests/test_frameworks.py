@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from threatlens.frameworks.attack_tree import build_attack_tree, build_attack_trees
-from threatlens.frameworks.linddun import assess_privacy, detect_privacy_signals
-from threatlens.frameworks.pasta import run_pasta
-from threatlens.frameworks.stride import analyze_stride, stride_categories_for_text
-from threatlens.models import (
+from threatprism.frameworks.attack_tree import build_attack_tree, build_attack_trees
+from threatprism.frameworks.linddun import assess_privacy, detect_privacy_signals
+from threatprism.frameworks.pasta import run_pasta
+from threatprism.frameworks.stride import analyze_stride, stride_categories_for_text
+from threatprism.models import (
     GateType,
     LinddunCategory,
     PastaStage,

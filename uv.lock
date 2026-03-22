@@ -1381,7 +1381,7 @@ wheels = [
 ]
 
 [[package]]
-name = "threatlens"
+name = "threatprism"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [
