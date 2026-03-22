@@ -38,6 +38,11 @@ dependencies = [
     "click>=8.0.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/manambharadwaj/threatlens"
+Repository = "https://github.com/manambharadwaj/threatlens"
+Issues = "https://github.com/manambharadwaj/threatlens/issues"
+
 [project.optional-dependencies]
 dev = [
     "pytest>=8.0.0",
