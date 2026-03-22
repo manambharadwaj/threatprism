@@ -44,8 +44,8 @@ def _dread_bar(score: float) -> str:
 def _render_attack_node(node: AttackNode, depth: int = 0) -> list[str]:
     indent = "  " * depth
     gate_label = f" [{node.gate.value}]" if node.gate != GateType.LEAF else ""
-    prob = f" (p={node.likelihood:.0%})" if node.likelihood else ""
-    imp = f" [impact={node.impact}]" if node.impact else ""
+    prob = f" (p={node.likelihood:.0%})" if node.likelihood is not None else ""
+    imp = f" [impact={node.impact}]" if node.impact is not None else ""
     lines = [f"{indent}- {node.label}{gate_label}{prob}{imp}"]
     for child in node.children:
         lines.extend(_render_attack_node(child, depth + 1))

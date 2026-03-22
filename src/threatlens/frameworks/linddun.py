@@ -9,6 +9,7 @@ personal data types and processing activities.
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import TYPE_CHECKING
 
@@ -111,7 +112,7 @@ _PROCESSING_ACTIVITIES: dict[str, list[str]] = {
     "cross_border": [
         "international",
         "cross.border",
-        "eu",
+        r"\beu\b",
         "gdpr",
         "transfer abroad",
         "global",
@@ -236,11 +237,20 @@ _PRIVACY_THREATS: list[_PrivacyThreatTemplate] = [
 ]
 
 
+def _kw_match(keyword: str, text: str) -> bool:
+    """Match keyword against text using word boundaries for short tokens."""
+    if keyword.startswith(r"\b"):
+        return bool(re.search(keyword, text))
+    if len(keyword) <= 3:
+        return bool(re.search(rf"\b{re.escape(keyword)}\b", text))
+    return keyword in text
+
+
 def _detect_data_types(text: str) -> list[str]:
     lowered = text.lower()
     found: list[str] = []
     for dtype, keywords in _DATA_TYPES.items():
-        if any(kw in lowered for kw in keywords):
+        if any(_kw_match(kw, lowered) for kw in keywords):
             found.append(dtype)
     return found
 
@@ -249,7 +259,7 @@ def _detect_activities(text: str) -> list[str]:
     lowered = text.lower()
     found: list[str] = []
     for activity, keywords in _PROCESSING_ACTIVITIES.items():
-        if any(kw in lowered for kw in keywords):
+        if any(_kw_match(kw, lowered) for kw in keywords):
             found.append(activity)
     return found
 

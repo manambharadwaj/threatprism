@@ -183,7 +183,7 @@ def assess_privacy_impact(
 # ---------------------------------------------------------------------------
 
 
-@mcp.tool(tags={"attack_tree", "analysis"})
+@mcp.tool(name="build_attack_tree", tags={"attack_tree", "analysis"})
 def build_attack_tree_tool(
     threat_json: dict,
 ) -> dict:

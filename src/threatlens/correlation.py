@@ -39,15 +39,17 @@ def correlate_threat(threat: Threat, system_context: str = "") -> FrameworkCorre
     mitre_ids = [f"{t['id']} ({t['name']})" for t in mitre]
 
     linddun_cats = linddun_for_stride(threat.stride_categories)
-    combined_linddun = list(set(threat.privacy_categories + linddun_cats))
+    combined_linddun = sorted(
+        set(threat.privacy_categories + linddun_cats), key=lambda c: c.value
+    )
 
     return FrameworkCorrelation(
         threat_id=threat.id,
         threat_title=threat.title,
         stride=list(threat.stride_categories),
         dread=dread,
-        linddun=sorted(combined_linddun, key=lambda c: c.value),
-        cwe_ids=list(set(threat.cwe_ids + cwe_ids)),
+        linddun=combined_linddun,
+        cwe_ids=sorted(set(threat.cwe_ids + cwe_ids)),
         mitre_techniques=mitre_ids,
     )
 
