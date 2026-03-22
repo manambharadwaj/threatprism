@@ -2,6 +2,7 @@
 
 **Multi-framework threat intelligence for AI coding agents**
 
+[![CI](https://github.com/manambharadwaj/threatlens/actions/workflows/ci.yml/badge.svg)](https://github.com/manambharadwaj/threatlens/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/downloads/)
 
